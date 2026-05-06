@@ -1,6 +1,10 @@
 # NBA Game Prediction Model
 
-A machine learning project that predicts NBA game outcomes (win/loss and final point totals) using two modeling approaches: a Dense Neural Network (Keras) and TabPFN. Built on rolling team statistics and missing-player impact features.
+This project develops an AI-based system for predicting NBA game outcomes and point spreads using historical player and team box-score data. The main objective is to estimate both the probability that the home team wins and the expected home-team scoring margin. The system uses player-level box-score data from the 2021-22 through 2025-26 NBA seasons, aggregates those records into team-game observations, engineers rolling pre-game features, and trains multiple supervised learning models. To avoid data leakage, all rolling statistics are shifted so that each prediction uses only information available before the game being predicted.
+The final system includes two major model families: a dense neural network implemented in Keras and a tabular machine learning model. The tabular model is designed to use TabPFN when available, with a HistGradientBoosting fallback when TabPFN is unavailable. The neural network and tabular model are trained for two related tasks: binary win/loss classification and spread regression. Model performance is evaluated on a chronological holdout test set containing 1,179 games. The Dense Neural Network achieved 65.7% classification accuracy, 0.721 ROC AUC, 11.36 point spread MAE, and 14.55 point RMSE. The HistGradientBoosting fallback achieved 65.6% classification accuracy, 0.705 ROC AUC, 11.66 point spread MAE, and 14.78 point RMSE.
+The project also includes a matchup prediction interface and an odds-market comparison prototype. These outputs translate model predictions into interpretable game-level summaries, including home win probability, predicted spread, predicted winner, and potential differences between model estimates and sportsbook lines. Overall, the project demonstrates how modern AI and tabular machine learning can be applied to sports analytics, while also showing the limits of prediction in a high-variance domain like professional basketball.
+<img width="468" height="207" alt="image" src="https://github.com/user-attachments/assets/bee3ce86-3b95-48d0-b7ff-d5f0fbb6a4f9" />
+
 
 ## Models
 
@@ -68,6 +72,4 @@ nba-prediction-model/
 └── .gitignore
 ```
 
-## Notes
 
-This was originally built as a final project exploring tabular foundation models (TabPFN) versus traditional Dense NNs on a real-world prediction task.
